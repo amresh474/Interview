@@ -9,11 +9,13 @@ const port = process.env.PORT || 4000
 
 app.get('/',auth.isAuthorized,(req,res)=>{
 
-    const {a,b} = req.params;
-    if(a || b || !Number.isNaN(a)  || !Number.isNaN(b) ){
-       res.status(400).send(' Invalid input ') 
+    const { a, b } = req.query;
+
+    if (!a || !b || isNaN(a) || isNaN(b)) {
+        return res.status(400).send('Invalid input');
     }
-     res.status(200).send(Number(a)+Number(b));
+
+    res.status(200).send({ result: Number(a) + Number(b) });
 
 })
 
